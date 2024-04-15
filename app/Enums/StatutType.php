@@ -15,7 +15,7 @@ enum StatutType : string
     {
         return match ($this){
             self::STARTED => 'border-blue-500',
-            self::IN_PROGESS => 'border-yellow-500',
+            self::IN_PROGESS => 'border-yellow-600',
             self::DONE => 'border-green-500'
         };
     }

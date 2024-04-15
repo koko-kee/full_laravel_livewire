@@ -13,12 +13,19 @@ class TasksList extends Component
 {
     use withPagination;
 
-    public function changeStatut($id,$statut)
+    public function changeStatut($id, $statut)
     {
         $task = Task::find($id);
         $task->status = $statut;
         $task->save();
     }
+
+    public function delete($id)
+    {
+        $task = Task::find($id);
+        $task->delete();
+    }
+
     public function placeholder()
     {
         return view('skeleton');
@@ -27,14 +34,13 @@ class TasksList extends Component
     #[on('task-created')]
     public function render()
     {
-        return view('livewire.tasks.tasks-list',[
+        return view('livewire.tasks.tasks-list', [
             'tasks' => auth()->user()->tasks()->paginate(4),
             'count' => auth()->user()->tasks()->count(),
-            'tasksByStatut' => auth()->user()->tasks()->select('status',DB::raw('COUNT(*) as count'))
-            ->groupBy('status')
-                ->orderBy('status','desc')
-            ->get()
+            'tasksByStatut' => auth()->user()->tasks()->select('status', DB::raw('COUNT(*) as count'))
+                ->groupBy('status')
+                ->orderBy('status', 'desc')
+                ->get()
         ]);
     }
-
 }

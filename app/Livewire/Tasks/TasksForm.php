@@ -3,7 +3,9 @@
 namespace App\Livewire\Tasks;
 
 use App\Livewire\Forms\TaskForm;
+use App\Models\Task;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class TasksForm extends Component
@@ -18,10 +20,18 @@ class TasksForm extends Component
     public function save()
     {
         $this->validate();
-        //auth()->user()->tasks()->create($this->only(['title','slug','description','status','priority','deadline']));
         $this->form->createTask();
         $this->dispatch('task-created');
     }
+
+
+    #[On('edit-task')]
+    public function editTask($id)
+    {
+        $task = Task::find($id);
+        $this->form->setTask($task);
+    }
+
 
     public function render()
     {

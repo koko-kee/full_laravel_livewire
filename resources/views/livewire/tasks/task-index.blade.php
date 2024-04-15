@@ -1,5 +1,5 @@
 <div>
-     <div class="py-12 max-w-9xl mx-auto flex">
+     <div class="flex py-12 mx-auto max-w-9xl">
          <livewire:tasks.tasks-list lazy/>
          <livewire:tasks.tasks-form/>
     </div>
